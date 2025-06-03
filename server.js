@@ -11,10 +11,16 @@ const fs = require('fs');
 const path = require('path');
 const User = require('./models/User');
 const Post = require('./models/Post');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT ?? 1234;
 
+app.use(cors({
+  origin: 'https://redsocial-two.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true, // si manejas cookies o autenticación basada en sesiones (opcional)
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
