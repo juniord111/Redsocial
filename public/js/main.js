@@ -19,10 +19,13 @@ const postsContainer = document.getElementById('postsContainer');
 
 const togglePostBtn = document.getElementById('togglePostBtn');
 const createPostContainer = document.getElementById('createPostContainer');
+
+const baseURL = 'https://redsocial-l8sf.onrender.com';
+
 // Verificar token al cargar
 const token = localStorage.getItem('token');
 if (token) {
-  fetch('/me', { headers: { Authorization: `Bearer ${token}` } })
+  fetch(baseURL + '/me', { headers: { Authorization: `Bearer ${token}` } })
     .then(res => res.ok ? res.json() : Promise.reject())
     .then(data => {
       localStorage.setItem('name', data.name);
@@ -59,7 +62,7 @@ loginForm.onsubmit = async (e) => {
   const email = loginForm.email.value;
   const password = loginForm.password.value;
 
-  const res = await fetch('/login', {
+  const res = await fetch(baseURL +'/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password })
@@ -82,7 +85,7 @@ registerForm.onsubmit = async (e) => {
 
   const formData = new FormData(registerForm); // 🔥 Esto captura la imagen correctamente
 
-  const res = await fetch('/register', {
+  const res = await fetch(baseURL +'/register', {
     method: 'POST',
     body: formData, // 🔥 Enviamos los datos como FormData, NO como JSON
   });
@@ -122,7 +125,7 @@ postForm.onsubmit = async (e) => {
     formData.append('imagen', imagenInput.files[0]);
   }
 
-  const res = await fetch('/posts', {
+  const res = await fetch(baseURL +'/posts', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -141,7 +144,7 @@ postForm.onsubmit = async (e) => {
 
 // Cargar y mostrar posts
 async function cargarPosts() {
-  const res = await fetch('/posts');
+  const res = await fetch(baseURL +'/posts');
   const posts = await res.json();
   postsContainer.innerHTML = '';
 
@@ -195,7 +198,7 @@ async function cargarPosts() {
         const nuevoContenido = prompt('Nuevo contenido', post.contenido);
         if (!nuevoTitulo || !nuevoContenido) return;
 
-        await fetch(`/posts/${post.id}`, {
+        await fetch(baseURL +`/posts/${post.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -211,7 +214,7 @@ async function cargarPosts() {
     if (deleteBtn) {
       deleteBtn.onclick = async () => {
         if (!confirm('¿Eliminar este post?')) return;
-        await fetch(`/posts/${post.id}`, {
+        await fetch(baseURL + `/posts/${post.id}`, {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -228,7 +231,7 @@ async function cargarPosts() {
       const texto = fd.get('texto').trim();
       if (!texto) return alert('Comentario vacío');
 
-      await fetch(`/posts/${post.id}/comentarios`, {
+      await fetch(baseURL +`/posts/${post.id}/comentarios`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
