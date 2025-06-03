@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NeoRed</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="shortcut icon" href="images/NR.png" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Vista Login -->
+  <section id="login-view">
+    <h2>Iniciar sesión</h2>
+    <form id="login-form">
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Contraseña" required />
+      <button type="submit">Entrar</button>
+    </form>
+    <p>¿No tienes cuenta? <a href="#" id="to-register">Regístrate aquí</a></p>
+  </section>
+
+  <!-- Vista Registro -->
+  <section id="register-view" class="hidden">
+    <h2>Registro</h2>
+    <form id="register-form" enctype="multipart/form-data">
+      <input type="text" name="name" placeholder="Nombre" required />
+      <input type="email" name="email" placeholder="Correo electrónico" required />
+      <input type="password" name="password" placeholder="Contraseña" required />
+      <input type="file" name="imagenPerfil" accept="image/*" />
+      <button type="submit">Registrarse</button>
+    </form>
+    <p>¿Ya tienes cuenta? <a href="#" id="to-login">Inicia sesión</a></p>
+  </section>
+
+  <!-- Vista Dashboard -->
+  <section id="dashboard-view" class="hidden">
+    <div class="top-bar">
+      <div class="left-info">
+        <h1 class="red-name"> <img class="logo" src="images/NR.png" alt="">Neored</h1>
+        <span class="greeting"><strong id="user-name">Usuario</strong></span>
+      </div>
+    </div>
+    <div class="bottom-bar">
+      <button id="togglePostBtn" class="toggle-post-btn" aria-label="Abrir/Cerrar creación de post">
+        <span class="material-icons">add</span>
+      </button>
+    <div id="createPostContainer" class="create-post-container hidden">
+      <form id="postForm" enctype="multipart/form-data">
+        <input type="text" id="titulo" name="titulo" placeholder="Título del post" required />
+        <textarea id="contenido" name="contenido" placeholder="Contenido del post" required></textarea>
+        <input type="file" id="imagen" name="imagen" accept="image/*" />
+        <button type="submit">Publicar</button>
+      </form>
+    </div>
+
+
+
+      <nav class="bottom-nav">
+        <a href="#" class="nav-item" id="nav-home">
+          <span class="material-icons">home</span>
+        </a>
+        <a href="#" class="nav-item" id="nav-sponsor">
+          <span class="material-icons">star</span>
+        </a>
+        <a href="#" class="nav-item" id="nav-configuracion">
+          <span class="material-icons">settings</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Vistas internas -->
+    <div id="home-view">
+      <h3>Posts recientes</h3>
+      <div id="postsContainer"></div>
+    </div>
+
+    <div id="sponsor-view" class="hidden">
+      <h3>Zona Sponsor</h3>
+      <p>impulsa tu marca con la red social mas famosa</p>
+      <a href="preciosinterruptor/planes.html">
+        <button id="btn-plan">cambiar plan</button>
+      </a>
+      <div class="sponsor-content">
+        
+      </div>
+    </div>
+
+    <div id="configuracion-content" class="hidden">
+      <button id="logout-btn">Cerrar sesión</button>
+    </div>
+  </section>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
